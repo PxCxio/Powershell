@@ -1,0 +1,1 @@
+Add-DhcpServerv4Reservation -ComputerName domaincontrol.id.internal -ScopeID 192.168.0.0 -IPAddress 192.168.0.200 -ClientId F0-DE-F1-7A-00-5E -Description "reservation for Printer"

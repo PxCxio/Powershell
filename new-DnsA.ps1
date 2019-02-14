@@ -1,0 +1,1 @@
+Add-DnsServerResourceRecordA -Name "$1" -zoneName "id.internal" -AllowUpdateAny -IPv4Address "$IP" -TimeToLive 01:00:00

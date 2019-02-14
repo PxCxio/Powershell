@@ -1,0 +1,1 @@
+New-SmbShare -Name SharedFolder -Path C:\ShareFolder -FullAccess ID\Administrator -ReadAccess ID\$USER

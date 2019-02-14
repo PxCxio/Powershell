@@ -1,0 +1,1 @@
+$newpwd = ConvertTo-SecureString -String "$1" -AsPlainText -Force

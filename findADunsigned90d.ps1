@@ -1,0 +1,1 @@
+Search-ADAccount -accountinactive -timespan 90.00:00:00

@@ -1,0 +1,1 @@
+Set-ADAccountPassword $1 -NewPassword $newpwd -Reset -PassThru | Set-ADuser -ChangePasswordAtLogon $True

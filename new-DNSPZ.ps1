@@ -1,0 +1,1 @@
+Add-DnsServerPrimaryZone -Name "zone1.id.internal" -ReplicationScope "Forest" -PassThru

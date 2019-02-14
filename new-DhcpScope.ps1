@@ -1,0 +1,1 @@
+Add-DhcpServerv4Scope -Name "A-Scope" -StartRange 192.168.0.0 -EndRange 192.16.0.254 -SubnetMask 255.255.255.0

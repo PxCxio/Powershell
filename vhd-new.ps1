@@ -1,0 +1,1 @@
+New-VM -MemoryStartup 2048MB -Name D-VM -PATH "c:\D-VM" -VHDPATH "c:\D-VM\disk.vhdx"

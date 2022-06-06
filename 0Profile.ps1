@@ -3,7 +3,7 @@ Import-Module PSReadLine
 
 #SET/EXPORT Used Variables throughout Year-Semester
 function goclass ($arg){
-cd "$HOME\Documents\MastersDeg\Classes\Semester4\$arg"
+cd "$HOME\Documents\MastersDeg\Classes\Semester4\*$arg*"
 }
 
 $Proj3="$HOME\Documents\MastersDeg\Classes\Semester3\CEN5079SecProgramming\Project3\"
@@ -12,10 +12,7 @@ Set-Alias vi vim
 
 function sign ($filename) {
 
-  $cert = @(gci cert:\currentuser\my 
-
--codesigning)[0]
-
+$cert = @(gci cert:\CurrentUser\My -CodeSigningCert)[0]
 Set-AuthenticodeSignature $filename $cert
 
 }
@@ -38,7 +35,7 @@ function swriter {
 }
 
 function stp ($arg){
-Get-Process "$arg" | Stop-Process
+Get-Process "*$arg*" | Stop-Process
 }
 
 function chrome {
@@ -60,6 +57,10 @@ C:\ProgramData\chocolatey\bin\PUTTY.EXE
 
 function toDo {
 vi %TEMP%/toDo.txt
+}
+
+function tmp {
+cd C:\Users\xyriux\AppData\Local\Temp
 }
 
 function OCRPDF($in, $out){
@@ -121,6 +122,10 @@ function 7zd ($in,$out) {
 7z x $in -o$out	 
 }
 
+function Rscript () {
+."C:\Program Files\R\R-4.1.2\bin\R.exe"
+}
+
 function rwebcm ($filename) {
 ffmpeg -f dshow -i video="Integrated Camera" -f dshow -i audio="Microphone Array (Synaptics Audio)" $HOME\Videos\MKV\$filename.mkv
 }
@@ -166,6 +171,15 @@ echo "--------------------------------------------------------------------------
 (Compare-Object -ReferenceObject $SourceDocs -DifferenceObject $DestDocs  -Property hash -PassThru).Path
 }
 
+function diff($doc1,$doc2){
+compare-object (get-content $doc1) (get-content $doc2)
+}
+
+#WSL Allows you to pass aditional parameters
+function ls_alias { wsl ls --color=auto -hF $args }
+Set-Alias -Name ls -Value ls_alias -Option AllScope
+
+
 #WhenInBootCamp
 function script:bootToOsX
 {
@@ -189,6 +203,13 @@ function mix(){
 start ms-settings:apps-volume
 }
 
+function bt(){
+start ms-settings:bluetooth
+}
+
+function dsp(){
+start ms-settings:display
+}
 
 function srtDate (){
 
@@ -198,6 +219,78 @@ ls | Sort-Object -Property @{Expression = {$_.CreationTime - $_.LastWriteTime}; 
 function termTrans(){
 C:\Users\xyriux\Documents\Coding\AutoHotkey\WinTransparency.ahk
 }
+
+function cd.. () {
+cd ..
+}
+
+function .. () {
+cd ..
+}
+
+function ..2 () {
+cd ..\..\
+}
+
+
+function .3 () {
+cd ..\..\..
+}
+
+function BigO(){
+cat ~/Desktop/BigOSheet
+}
+
+function SortRuntimes(){
+cat C:\Users\xyriux\Documents\MastersDeg\Classes\Semester4\COT5407IntroAlgo\SortRuntimes.txt
+}
+
+function reboot(){
+shutdown /r /t 00
+}
+
+function dwarf_fortress(){
+."C:\Users\xyriux\Games\PerdidexiserrantLNPStarterPack\Starter Pack Launcher (PyLNP).exe"
+}
+
+#Tunneling VNC/SSH, $User, $IP
+function vnctunnel($1,$2){
+ ssh -C -N -L 5901:localhost:5900 $1@$2
+}
+
+#Text2Speech#
+Function Convert-TextToSpeech {
+    [CmdletBinding()]
+    Param (
+        [Parameter(Mandatory)]
+        [string]$Text,
+        [Parameter()]
+        [ValidateSet(1,2,3,4,5,6,7,8,9,10)]
+        [int]$SpeechSpeed = 5
+    ) # End Param.
+ 
+    Begin {
+        Function ConvertTextToSpeech {
+            [CmdletBinding()]Param (
+                [Parameter()]$Text,
+                [Parameter()]$SpeechSpeed
+            ) # End Param.
+            Add-Type -AssemblyName System.Speech
+            $VoiceEngine = New-Object System.Speech.Synthesis.SpeechSynthesizer
+            $VoiceEngine.Rate = $SpeechSpeed - 2
+            $VoiceEngine.Speak($Text)
+        } # End Function: ConvertTextToSpeech.
+    } # End Begin.
+ 
+    Process {
+        $Session = New-PSSession -Name WinPSCompatSession -UseWindowsPowerShell
+        Invoke-Command -Session $Session -ScriptBlock ${Function:ConvertTextToSpeech} -ArgumentList $Text,$SpeechSpeed
+    } # End Process.
+ 
+    End {
+        Remove-PSSession -Name WinPSCompatSession
+    } # End End.
+} # End Function: Convert-TextToSpeech.
 
 ####VirtualBox
 
@@ -225,30 +318,6 @@ function dEcho () {
 echo "the VM is:" $VM
 }
 
-function cd.. () {
-cd ..
-}
-
-function .. () {
-cd ..
-}
-
-function ..2 () {
-cd ..\..\
-}
-
-
-function .3 () {
-cd ..\..\..
-}
-
-function BigO(){
-cat ~/Desktop/BigOSheet
-}
-
-function SortRuntimes(){
-cat C:\Users\xyriux\Documents\MastersDeg\Classes\Semester4\COT5407IntroAlgo\SortRuntimes.txt
-}
 
 #CreateVM
 function vvm-create ($VM, $SIZE, $MEM, $isoFile) {
